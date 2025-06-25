@@ -12,11 +12,13 @@ npm install deviceonboarder
 
 
 ```js
-import { multiply } from 'deviceonboarder';
+import { startScan } from 'deviceonboarder';
 
 // ...
-
-const result = multiply(3, 7);
+const templateJson = JSON.stringify(template.template.label);
+ const result = await startScan(templateJson, 5);
+ //templateJson is the template label json array
+ //5 is the delat time before the scan starts
 ```
 
 
