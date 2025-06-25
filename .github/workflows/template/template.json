@@ -1,0 +1,78 @@
+{
+    "header": {
+      "Version": "1.0",
+      "Name": "DDS Label Template"
+    },
+    "template": {
+      "name": "Autosense",
+      "label": [
+        {
+          "identifier": "Model",
+          "type": "text",
+          "prefix": "Model No:,Model No, MODEL NUMBER, MODEL/MODELE:, MODEL/MODELE, Model,  Model:",
+   "regex": "[a-zA-Z0-9]{1}[a-zA-Z0-9 \\-\\\\]*"
+        },
+        {
+          "identifier": "Manufacture Location",
+          "type": "text",
+          "prefix": "Assembled in, Made in",
+   "regex": "[a-zA-Z0-9]{1}[a-zA-Z0-9 -\\\\]*"
+        },
+        {
+          "identifier": "Part Number",
+          "type": "text",
+          "prefix": "P/N:, Part Number:",
+   "regex": "[a-zA-Z0-9]{1}[a-zA-Z0-9 -\\\\]*"
+        },
+        {
+          "identifier": "Serial Number",
+          "type": "text",
+          "prefix": "S/N:, Serial Number:, SERIAL NO/NO. DE SERIE:, SERIAL NO/NO. DE SERIE",
+   "regex": "[A-Za-z0-9\\-]+"
+        },
+        {
+          "identifier": "MAC Address",
+          "type": "text",
+          "prefix": "MAC:",
+   "regex": "[a-fA-F0-9X]{2}(?:[^A-Za-z0-9]*[a-fA-F0-9X]{2}){5}"
+        },
+        {
+          "identifier": "IMEI",
+          "type": "text",
+          "prefix": "IMEI:",
+   "regex": "(?:\\d(?:[^A-Za-z0-9])*){15,16}"
+        },
+        {
+          "identifier": "SSID",
+          "type": "text",
+          "prefix": "SSID",
+   "regex": "\\b[a-zA-Z0-9]+.*"
+        },
+        {
+          "identifier": "IP",
+          "type": "text",
+          "prefix": "IP",
+   "regex": "\\b\\d{1,3}[.:\\s]*\\d{1,3}[.:\\s]*\\d{1,3}[.:\\s]*\\d{1,3}\\b"
+        },
+        {
+          "identifier": "PWD",
+          "type": "text",
+          "prefix": "PWD, Key, PIN",
+   "regex": "[\\b[a-zA-Z0-9]+.*"
+        },
+        {
+          "identifier": "MAC Address",
+          "type": "qrcode",
+          "prefix": "",
+   "regex": "[a-fA-F0-9X]{2}(?:[^A-Za-z0-9]*[a-fA-F0-9X]{2}){5}"
+        },
+        {
+          "identifier": "MAC Address",
+          "type": "barcode",
+          "prefix": "",
+   "regex": "[a-fA-F0-9X]{2}(?:[^A-Za-z0-9]*[a-fA-F0-9X]{2}){5}"
+        }
+      ]
+    }
+  }
+  
