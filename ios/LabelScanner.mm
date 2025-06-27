@@ -13,22 +13,6 @@ RCT_EXPORT_MODULE()
 
     return result;
 }
-/*
-- (NSString *)startScan:(NSString *)templateJson delayTime:(double)delayTime {
-    NSLog(@"Template json: %@", templateJson);
-    return templateJson;
-}*/
-/*
-- (void)startScan:(NSString *)templateJson
-        delayTime:(double)delayTime
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject
-{
-    NSLog(@"Template json: %@", templateJson);
-    
-    // Example async result
-    resolve([NSString stringWithFormat:@"Received template: %@", templateJson]);
-}*/
 
 
 - (void)startScan:(NSString *)templateJson
@@ -37,9 +21,6 @@ RCT_EXPORT_MODULE()
            reject:(RCTPromiseRejectBlock)reject
 {
     NSLog(@"📥 Received template: %@", templateJson);
-    /*launchScan(templateJson, delayTime,
-                                     resolve,
-               reject);*/
 
    [ScanLauncher launchScanWithTemplateJson:templateJson
                                    delayTime:delayTime

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		019D580B94C3C640E3344887 /* libPods-LabelScannerExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB0534151F689E277CDA96C5 /* libPods-LabelScannerExample.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		640554AA0077382E55E03621 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C75F8A02E0A6C4900AC918A /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C75F89F2E0A6C4500AC918A /* dummy.swift */; };
+		CAAE2E3FA49B9C130FA0B8C3 /* libPods-LabelScannerExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,13 +20,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LabelScannerExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LabelScannerExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = LabelScannerExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		2B124C71ABD0AABC95DD9EAE /* Pods-LabelScannerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.release.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.release.xcconfig"; sourceTree = "<group>"; };
-		40651F824ED76D1CD5FD6212 /* Pods-LabelScannerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.debug.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.debug.xcconfig"; sourceTree = "<group>"; };
+		20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.release.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.release.xcconfig"; sourceTree = "<group>"; };
+		21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.debug.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = LabelScannerExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LabelScannerExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C75F89F2E0A6C4500AC918A /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
+		A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabelScannerExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FB0534151F689E277CDA96C5 /* libPods-LabelScannerExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabelScannerExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				019D580B94C3C640E3344887 /* libPods-LabelScannerExample.a in Frameworks */,
+				CAAE2E3FA49B9C130FA0B8C3 /* libPods-LabelScannerExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				FB0534151F689E277CDA96C5 /* libPods-LabelScannerExample.a */,
+				A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -95,8 +95,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				40651F824ED76D1CD5FD6212 /* Pods-LabelScannerExample.debug.xcconfig */,
-				2B124C71ABD0AABC95DD9EAE /* Pods-LabelScannerExample.release.xcconfig */,
+				21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */,
+				20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -108,13 +108,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LabelScannerExample" */;
 			buildPhases = (
-				99B788F1F343BE782C835808 /* [CP] Check Pods Manifest.lock */,
+				5CD0DC9A307A9BA18E3106B0 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A5BC87D8C43B1AD5592640BE /* [CP] Embed Pods Frameworks */,
-				4522E62E39A7A24DEF014EBF /* [CP] Copy Pods Resources */,
+				8E0BC5C396E387BBFB8F31F4 /* [CP] Embed Pods Frameworks */,
+				8819FB3A6BF51775CAF65414 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,24 +186,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		4522E62E39A7A24DEF014EBF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99B788F1F343BE782C835808 /* [CP] Check Pods Manifest.lock */ = {
+		5CD0DC9A307A9BA18E3106B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,7 +208,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A5BC87D8C43B1AD5592640BE /* [CP] Embed Pods Frameworks */ = {
+		8819FB3A6BF51775CAF65414 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E0BC5C396E387BBFB8F31F4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,7 +259,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40651F824ED76D1CD5FD6212 /* Pods-LabelScannerExample.debug.xcconfig */;
+			baseConfigurationReference = 21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -292,7 +292,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B124C71ABD0AABC95DD9EAE /* Pods-LabelScannerExample.release.xcconfig */;
+			baseConfigurationReference = 20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

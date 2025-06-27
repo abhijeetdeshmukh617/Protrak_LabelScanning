@@ -1,6 +1,6 @@
 {
-  "name": "deviceonboarder",
-  "version": "0.1.0",
+  "name": "@prorigo/deviceonboarder",
+  "version": "0.1.1",
   "description": "LabelScan",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -40,24 +40,6 @@
     "prepare": "bob build",
     "release": "release-it --only-version"
   },
-  "keywords": [
-    "react-native",
-    "ios",
-    "android"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://www.youtube.com/.git"
-  },
-  "author": "Viplob_Pratihar <viplob.pratihar@prorigosoftware.com> (https://www.youtube.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://www.youtube.com//issues"
-  },
-  "homepage": "https://www.youtube.com/#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/compat": "^1.2.7",
@@ -80,6 +62,7 @@
     "react": "19.0.0",
     "react-native": "0.79.2",
     "react-native-builder-bob": "^0.40.12",
+    "react-native-permissions": "^5.4.1",
     "release-it": "^17.10.0",
     "turbo": "^1.10.7",
     "typescript": "^5.8.3"
@@ -91,37 +74,12 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": {
-          "name": "angular"
-        }
-      }
-    }
   },
   "prettier": {
     "quoteProps": "consistent",
@@ -160,8 +118,5 @@
     "languages": "kotlin-objc",
     "type": "turbo-module",
     "version": "0.51.0"
-  },
-  "dependencies": {
-    "react-native-permissions": "^5.4.1"
   }
 }
