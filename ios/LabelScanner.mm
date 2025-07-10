@@ -1,38 +1,54 @@
-#import <AVFoundation/AVFoundation.h> 
 #import "LabelScanner.h"
 #import "LabelScanner-Bridging-Header.h"
-#import <LabelScannerSpec/LabelScannerSpec.h>
-#import "LabelScanner-Swift.h"
-
+#import <React/RCTLog.h>
+#import <LabelScanner-Swift.h>
 
 @implementation LabelScanner
-RCT_EXPORT_MODULE()
 
-- (NSNumber *)multiply:(double)a b:(double)b {
-    NSNumber *result = @(a * b);
+RCT_EXPORT_MODULE();
 
-    return result;
-}
-
-
-- (void)startScan:(NSString *)templateJson
-        delayTime:(double)delayTime
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject
+RCT_EXPORT_METHOD(multiply:(double)a
+                  b:(double)b
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSLog(@"📥 Received template: %@", templateJson);
-
-   [ScanLauncher launchScanWithTemplateJson:templateJson
-                                   delayTime:delayTime
-                                     resolve:resolve
-                                      reject:reject];
+  double result = a * b;
+  resolve(@(result));
 }
 
 
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
+RCT_EXPORT_METHOD(scanQrBarCode:(double)a
+                  b:(double)b
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    return std::make_shared<facebook::react::NativeLabelScannerSpecJSI>(params);
+  double result = a + b;
+  resolve(@(result));
 }
+
+RCT_EXPORT_METHOD(startScan:(NSString *)templateJson
+                  delayTime:(double)delayTime
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+  NSLog(@"📥 Received template: %@", templateJson);
+
+  [ScanLauncher launchScanWithTemplateJson:templateJson
+                                 delayTime:delayTime
+                                   resolve:resolve
+                                    reject:reject];
+}
+
+RCT_EXPORT_METHOD(scanBarcodeQRcode:(double)delayTime
+                   resolver:(RCTPromiseResolveBlock)resolve 
+                   rejecter:(RCTPromiseRejectBlock)reject)
+{
+  NSLog(@"📥 Received delay time: %f", delayTime);
+
+  [ScanLauncher launchScanforBarCodeWithdelayTime:delayTime
+                                          resolve:resolve
+                                           reject:reject];
+}
+
 
 @end
