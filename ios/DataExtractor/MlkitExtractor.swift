@@ -41,6 +41,44 @@ class MlkitExtractor {
         }
     }
 
+ func extractQrBarCodes(data: [CapturedImage], completion: @escaping (String?) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        var barCodeJsonArray: [String] = []
+     var BarCodeDataList: [String] = []
+        for (index, imageData) in data.enumerated() {
+            guard let cgImage = imageData.image.cgImage else {
+                continue
+            }
+           
+            dispatchGroup.enter()
+            detectBarcodes(from: imageData.image) { results in
+                DispatchQueue.main.async {
+                    print("barcode results ----- \(results)")
+                    for barcode in results {
+                      
+                            print("barcode in results: \(barcode)")
+                        
+                    }
+                    BarCodeDataList.append(contentsOf: results)
+                    for item in results {
+                               if !barCodeJsonArray.contains(item) {
+                                   barCodeJsonArray.append(item)
+                               }
+                           }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+        print("barcode >>> barCodeJsonArray ----- \(barCodeJsonArray)")
+            if let jsonData = try? JSONSerialization.data(withJSONObject: barCodeJsonArray, options: []),
+                           let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("barcode >>>jsonString ----- \(jsonString)")
+                completion(jsonString)
+                           }
+        }
+    }
+
     
     func groupTextIntoLines(observations: [VNRecognizedTextObservation], yThreshold: CGFloat = 0.02) -> [[VNRecognizedText]] {
         var lineGroups: [[(VNRecognizedTextObservation, VNRecognizedText)]] = []

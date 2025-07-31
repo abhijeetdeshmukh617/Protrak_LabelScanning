@@ -24,6 +24,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     val scannedBarCode = SmoothedMutableLiveData<List<Barcode>>(SMOOTHING_DURATION)
     val scanResultJson = SmoothedMutableLiveData<String>(SMOOTHING_DURATION)
     var timePending: Long = 0
+    var scanType: String? = Constants.SCAN_LABEL
     lateinit var imagePath: String
     var isScanning = false
     var scanDataManager = ScanDataManager()

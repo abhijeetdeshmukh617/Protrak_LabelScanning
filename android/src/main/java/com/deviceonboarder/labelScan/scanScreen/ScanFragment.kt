@@ -58,6 +58,7 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
+import org.json.JSONArray
 
 
 class ScanFragment : Fragment() {
@@ -65,7 +66,7 @@ class ScanFragment : Fragment() {
     companion object {
         const val imagePath = ""
 
-        fun newInstance(ARG1: String, ARG2: Int, ARG3: String?): ScanFragment {
+        fun newInstance(ARG1: String, ARG2: Int, ARG3: String?, ARG4: String?): ScanFragment {
             Log.d("newInstance","newInstance ARG1 "+ARG1)
             Log.d("newInstance","newInstance ARG2 "+ARG2)
             Log.d("newInstance","newInstance ARG3 "+ARG3)
@@ -74,6 +75,7 @@ class ScanFragment : Fragment() {
                 putString(Constants.INTENT_TEMPLATE_JSON_STRING, ARG1)
                 putInt(Constants.INTENT_SCAN_TIMER, ARG2)
                 putString(Constants.INTENT_KEY_IMAGE_PATH, ARG3)
+              putString(Constants.SCAN_TYPE, ARG4)
             }
             fragment.arguments = bundle
             return fragment
@@ -103,7 +105,7 @@ class ScanFragment : Fragment() {
     var ocrScanCount: Int = 0;
     var barcodeScanCount: Int = 0;
     private lateinit var imageAnalysis: ImageAnalysis
-   lateinit var countDownTimer: CountDownTimer 
+   lateinit var countDownTimer: CountDownTimer
     private lateinit  var screenSize : Size
 
 
@@ -120,14 +122,20 @@ class ScanFragment : Fragment() {
         Log.d("startScan","viewModel timePending "+arguments?.getInt(Constants.INTENT_SCAN_TIMER))
         Log.d("startScan","viewModel imagePath "+arguments?.getString(Constants.INTENT_KEY_IMAGE_PATH))
         viewModel.SelectedTemplateString = arguments?.getString(Constants.INTENT_TEMPLATE_JSON_STRING).toString()
-        viewModel.timePending = 5L //= arguments?.getInt(Constants.INTENT_SCAN_TIMER)!!.toLong()
+        viewModel.timePending =  arguments?.getInt(Constants.INTENT_SCAN_TIMER)!!.toLong()
         viewModel.imagePath= arguments?.getString(Constants.INTENT_KEY_IMAGE_PATH)!!
+         Log.d("check", "scanType from arguments : ${ arguments?.getString(Constants.SCAN_TYPE)}")
+          viewModel.scanType = arguments?.getString(Constants.SCAN_TYPE)
+           Log.d("check", "scanType initial : ${viewModel.scanType ?: ""}")
+             Log.d("check", "scanType viewModel.timePending : ${viewModel.timePending}")
+           if(viewModel.scanType.equals(Constants.SCAN_LABEL)){
         viewModel.convertJsonToObject(viewModel.SelectedTemplateString)
-
+           }
         if (null != savedInstanceState) {
             viewModel.timePending = savedInstanceState.getLong(Constants.TIMER_INSTANCE)
             viewModel.isScanning = savedInstanceState.getBoolean(Constants.IS_SCANNING)
             viewModel.imagePath = savedInstanceState.getString(Constants.INTENT_KEY_IMAGE_PATH)!!
+            viewModel.scanType = savedInstanceState.getString(Constants.SCAN_TYPE)!!
         }
     }
 
@@ -333,17 +341,55 @@ class ScanFragment : Fragment() {
     fun checkThresholdAndStop(ocrScanCount: Int, barcodeScanCount: Int) {
         Log.d(
             Constants.TAG_PROCESS_TEXT,
+            " checkThresholdAndStop timer count " + viewModel.timePending +
             "checkThresholdAndStop : barcodeScanCount " + barcodeScanCount + " ocrScanCount " + ocrScanCount
         )
-        if (Constants.OCR_THRESHOLDCOUNT <= ocrScanCount) {
+        if ((Constants.OCR_THRESHOLDCOUNT <= ocrScanCount) || (Constants.OCR_THRESHOLDCOUNT <= barcodeScanCount) ) {
             stopCamera()
             viewFinder.visibility = View.GONE
             overlay.visibility = View.GONE
             processingText.visibility = View.VISIBLE
             progressBar.visibility = View.VISIBLE
+            Log.d("check", "scanType: ${viewModel.scanType ?: ""}")
+          if(viewModel.scanType.equals(Constants.SCAN_QRBARCODE)){
+             Log.d("check scanType"," inside scannedBarCode ")
+            val jsonArray = JSONArray()
+            val scannedList = viewModel.scannedBarCode.value ?: emptyList()
+              Log.d("check", "scanType scannedList : ${scannedList}")
+            for (code in scannedList) {
+              code.rawValue?.let { qrCodeVal ->
+                Log.d("check", "scanType qrCodeVal : ${qrCodeVal}")
+                if (!containsValue(jsonArray, qrCodeVal)) {
+                  jsonArray.put(qrCodeVal)
+                  Log.d(Constants.TAG_PROCESS_CODE, "Added new code to JSON array: $qrCodeVal")
+                } else {
+                  Log.d(Constants.TAG_PROCESS_CODE, "Duplicate skipped: $qrCodeVal")
+                }
+              }
+            }
+             Log.d("check", "scanType jsonArray : ${jsonArray}")
+            val data = Intent();
+             Log.d("check", "scanType jsonArray.toString : ${(jsonArray.toString())}")
+            data.putExtra(Constants.SCAN_RESULT, jsonArray.toString());
+            activity?.setResult(Activity.RESULT_OK, data)
+             viewModel.isScanning == false
+            Log.d("startScan / onScanComplete", "Finishing the camera activity")
+            activity?.finish()
+          }else {
+              Log.d("check scanType"," inside processScan ")
             viewModel.processScan()
+          }
         }
     }
+
+  fun containsValue(array: JSONArray, value: String): Boolean {
+    for (i in 0 until array.length()) {
+      if (array.optString(i) == value) {
+        return true
+      }
+    }
+    return false
+  }
 
     fun setResolutionConfiguration(): ResolutionSelector {
         val resolutionSelectorBuilder = ResolutionSelector.Builder()
@@ -506,7 +552,7 @@ class ScanFragment : Fragment() {
             Log.d("startScan / onScanComplete", "Error in scanning")
             //activity?.setResult(Activity.RESULT_FIRST_USER, data)
         } else {
-            data.putExtra("ScanResultModel", scanResultJson);
+            data.putExtra(Constants.SCAN_RESULT, scanResultJson);
             Log.d(
                 "startScan / onScanComplete",
                 String.format(
@@ -541,7 +587,8 @@ class ScanFragment : Fragment() {
                     viewModel.scanDataManager,
                     viewModel.imagePath,
                     viewModel.sourceText,
-                    viewModel.scannedBarCode
+                    viewModel.scannedBarCode,
+                    viewModel.scanType
                 )
             )
         }

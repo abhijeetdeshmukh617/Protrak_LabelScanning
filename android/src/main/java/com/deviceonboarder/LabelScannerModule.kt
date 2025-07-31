@@ -32,33 +32,38 @@ private var promise: Promise? = null
  init {
         reactContext.addActivityEventListener(this)
     }
-
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
   override fun multiply(a: Double, b: Double): Double {
     return a * b
   }
-/*
-override fun startScan(templateJson: String, delayTime: Double): String {
-  Log.d("Template json","Json : "+templateJson)
- val intent = Intent(reactApplicationContext, ScanActivity::class.java).apply {
-    putExtra(Constants.INTENT_TEMPLATE_JSON_STRING, templateJson)
-    putExtra(Constants.INTENT_SCAN_TIMER, delayTime)
-   // putExtra(Constants.INTENT_KEY_IMAGE_PATH, "")
-    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-}
-    return "result"
-  }  */
 
-
+  override fun scanQRBarcode(promise: Promise) {
+    mPromise = promise
+    Log.d("startScan","scanType starting: scanQRBarcode")
+    val intent = Intent(reactApplicationContext, ScanActivity::class.java).apply {
+    //   putExtra(Constants.INTENT_SCAN_TIMER, delayTime)
+       putExtra(Constants.SCAN_TYPE,Constants.SCAN_QRBARCODE )
+      flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+    }
+    Log.d("startScan","starting: ")
+    val activity = currentActivity
+    Log.d("activity","activity: "+activity)
+    if (activity != null) {
+      activity.startActivityForResult(intent, Constants.REQUEST_CODE)
+      //finish()
+    } else {
+      Log.d("startScan","starting: ")
+      promise.reject("NO_ACTIVITY", "No current activity found")
+      mPromise = null
+    }
+  }
 
 override fun startScan(templateJson: String, delayTime: Double, promise: Promise) {
     mPromise = promise
- Log.d("startScan","starting: ")
     val intent = Intent(reactApplicationContext, ScanActivity::class.java).apply {
         putExtra(Constants.INTENT_TEMPLATE_JSON_STRING, templateJson)
         putExtra(Constants.INTENT_SCAN_TIMER, delayTime)
         putExtra(Constants.INTENT_KEY_IMAGE_PATH, "")
+        putExtra(Constants.SCAN_TYPE,Constants.SCAN_LABEL )
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     }
 Log.d("startScan","starting: ")
@@ -77,6 +82,8 @@ Log.d("startScan","starting: ")
 
 
 override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
+   Log.d("startScan", "scanComplete onActivityResult ")
+
         Log.d("startScan", "scanComplete onActivityResult called: requestCode=$requestCode resultCode=$resultCode")
 Log.d("startScan","requestCode: "+requestCode)
         if (requestCode == Constants.REQUEST_CODE) {
@@ -95,32 +102,6 @@ Log.d("startScan","requestCode: "+requestCode)
     override fun onNewIntent(intent: Intent?) {
         // No-op unless you use deep linking or similar
     }
-
-/* @Override
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        Log.d("scanComplete",
-                String.format("LabelScanModule received onActivityResult. requestCode=%d, resultCode=%d, data=%s",
-                        requestCode, resultCode, data));
-        if (requestCode == Constants.REQUEST_CODE) {
-            ScanResponseCode code = ScanResponseCode.Companion.fromActivityReturnCode(resultCode);
-            String scanResultJson = null;
-            if (null != data) {
-                scanResultJson = data.getStringExtra(Constants.SCAN_RESULT);
-            }
-            ScanPromiseResponse response = new ScanPromiseResponse(code, scanResultJson);
-            WritableMap responseToReturn = response.getResponse();
-            if (null != responseToReturn) {
-                mPromise.resolve(responseToReturn);
-            } else {
-                /* Failure */
-                String errMsg = String.format("Scan failed. Activity resultCode=%d", resultCode);
-                Log.d("scanComplete", errMsg);
-                mPromise.reject(new Error(errMsg));
-            }
-        }
-    }
-
-*/
   companion object {
     const val NAME = "LabelScanner"
   }

@@ -8,7 +8,13 @@ export function startScan(templateJson: string, delayTime: number): string {
   return LabelScanner.startScan(templateJson, delayTime);
 }*/
 
-export function startScan(templateJson: string, delayTime: number): Promise<string> {
+export function startScan(
+  templateJson: string,
+  delayTime: number
+): Promise<string> {
   return LabelScanner.startScan(templateJson, delayTime);
 }
 
+export function scanQRBarcode(): Promise<string> {
+  return LabelScanner.scanQRBarcode();
+}

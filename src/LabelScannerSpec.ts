@@ -5,7 +5,8 @@ export interface Spec extends TurboModule {
   multiply(a: number, b: number): number;
   //startScan(templateJson: string, delayTime: number): string;
   startScan(templateJson: string, delayTime: number): Promise<string>;
-  scanQRBarcode(): Promise<string>;
+  scanBarcodeQRcode(delayTime: number): Promise<string>;
+  scanQrBarCode(a: number, b: number): number;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('LabelScanner');

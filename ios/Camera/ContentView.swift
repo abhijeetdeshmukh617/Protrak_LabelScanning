@@ -6,12 +6,12 @@ struct ContentView: View {
     var delayTime: Double
     var onScanCompleted: (String) -> Void
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var cameraManager = CameraManager()
+    @ObservedObject private var cameraManager = CameraManager()
     @State private var capturedImages: [CapturedImage] = []
     @State private var hasStartedCapturing = false
-    @State private var countdown = 5
     @State private var showCountdown = true
     @State private var countdownScale: CGFloat = 1.0
+      @State private var countdown: Double = 0.0
 
     let extractor = MlkitExtractor()
 
@@ -19,7 +19,7 @@ struct ContentView: View {
         ZStack {
             // ✅ Camera feed
             CameraPreview(session: cameraManager.session)
-                .ignoresSafeArea()
+                 .edgesIgnoringSafeArea(.all)
 
             // ✅ Capture box
             Rectangle()
@@ -32,7 +32,7 @@ struct ContentView: View {
                 // ✅ Animated countdown
                 if capturedImages.count < 7 {
                     if showCountdown {
-                    Text("Starting in \(countdown) seconds")
+                    Text("Starting in \(Int(countdown)) seconds")
                         .font(.largeTitle)
                         .foregroundColor(.white)
                        // .scaleEffect(countdownScale)
@@ -77,10 +77,23 @@ struct ContentView: View {
                             cameraManager.captureImage()
                         }
                     } else {
-                        extractor.process(template: templateJson, data: capturedImages) { resultJson in
-                            print("📦 Result from content view: \(resultJson ?? "{}")")
+                         print(" content view templateJson: \(templateJson)")
+                       if(templateJson == nil || templateJson == "") {
+                             print(" calling extractQrBarCodes")
+                            extractor.extractQrBarCodes(data: capturedImages) { resultJson in
+                              
+                            print("📦 Result from content view extractQrBarCodes: \(resultJson ?? "{}")")
                             onScanCompleted(resultJson ?? "{}")
                              presentationMode.wrappedValue.dismiss()
+                        }
+                            
+                        } else {
+                                print(" calling process")
+                        extractor.process(template: templateJson, data: capturedImages) { resultJson in
+                            print("📦 Result from content view process: \(resultJson ?? "{}")")
+                            onScanCompleted(resultJson ?? "{}")
+                             presentationMode.wrappedValue.dismiss()
+                        }
                         }
                     }
                 }
@@ -93,7 +106,7 @@ struct ContentView: View {
     }
 
     private func startCountdown() {
-        countdown = 5
+        countdown = delayTime
         showCountdown = true
 
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in

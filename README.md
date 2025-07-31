@@ -10,17 +10,15 @@ npm install deviceonboarder
 
 ## Usage
 
-
 ```js
 import { startScan } from 'deviceonboarder';
 
 // ...
 const templateJson = JSON.stringify(template.template.label);
- const result = await startScan(templateJson, 5);
- //templateJson is the template label json array
- //5 is the delat time before the scan starts
+const result = await startScan(templateJson, 5);
+//templateJson is the template label json array
+//5 is the delat time before the scan starts
 ```
-
 
 ## Contributing
 

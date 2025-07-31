@@ -40,7 +40,6 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.util.concurrent.Executor
-
 /**
  * Analyzes the frames passed in from the camera and returns any detected text within the requested
  * crop region.
@@ -51,6 +50,7 @@ class MlkitImageAnalyzer(
     private val imagePath : String,
     private val scannedData: MutableLiveData<ScannedRawData>,
     private val barcodeResult: MutableLiveData<List<Barcode>>,
+    private val scanType : String?
 ) : ImageAnalysis.Analyzer {
     private val detector =
         TextRecognition.getClient(TextRecognizerOptions.Builder().setExecutor(executor).build())
@@ -96,20 +96,33 @@ class MlkitImageAnalyzer(
                     (imageWidth * widthCrop / 2).toInt(),
                     (imageHeight * heightCrop / 2).toInt()
                 )
+              if(scanType.equals(Constants.SCAN_QRBARCODE)){
                 val croppedBitmap =
-                    ImageUtils.rotateAndCrop(convertImageToBitmap, rotationDegrees, cropRect)
+                  ImageUtils.rotateAndCrop(convertImageToBitmap, rotationDegrees, cropRect)
+                  getBarCodeFromBitmap(
+                    InputImage.fromBitmap(
+                      croppedBitmap,
+                      0
+                    )
+                  ).addOnCompleteListener {
+                    imageProxy.close()
+                  }
+              }else {
+                val croppedBitmap =
+                  ImageUtils.rotateAndCrop(convertImageToBitmap, rotationDegrees, cropRect)
                 getTextFromBitmap(
-                     croppedBitmap
+                  croppedBitmap
                 ).addOnCompleteListener {
-                    getBarCodeFromBitmap(
-                        InputImage.fromBitmap(
-                            croppedBitmap,
-                            0
-                        )
-                    ).addOnCompleteListener {
-                        imageProxy.close()
-                    }
+                  getBarCodeFromBitmap(
+                    InputImage.fromBitmap(
+                      croppedBitmap,
+                      0
+                    )
+                  ).addOnCompleteListener {
+                    imageProxy.close()
+                  }
                 }
+              }
             }
         } catch (e: Exception) {
             Log.e("ERROR", e.message!!)

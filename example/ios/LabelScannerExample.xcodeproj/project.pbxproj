@@ -12,7 +12,7 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C75F8A02E0A6C4900AC918A /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C75F89F2E0A6C4500AC918A /* dummy.swift */; };
-		CAAE2E3FA49B9C130FA0B8C3 /* libPods-LabelScannerExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */; };
+		C77AAD05E2DBE79295EB2BD4 /* libPods-LabelScannerExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 412E4DAC68B5A57F0BD660E7 /* libPods-LabelScannerExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,13 +20,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LabelScannerExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LabelScannerExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = LabelScannerExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.release.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.release.xcconfig"; sourceTree = "<group>"; };
-		21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.debug.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.debug.xcconfig"; sourceTree = "<group>"; };
+		412E4DAC68B5A57F0BD660E7 /* libPods-LabelScannerExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabelScannerExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = LabelScannerExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LabelScannerExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C75F89F2E0A6C4500AC918A /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
-		A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabelScannerExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4841DA515419F783780AE9E /* Pods-LabelScannerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.debug.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FC9D7567CA83F1E9C1356A33 /* Pods-LabelScannerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelScannerExample.release.xcconfig"; path = "Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAAE2E3FA49B9C130FA0B8C3 /* libPods-LabelScannerExample.a in Frameworks */,
+				C77AAD05E2DBE79295EB2BD4 /* libPods-LabelScannerExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				A355696C2329A81AC990AFF4 /* libPods-LabelScannerExample.a */,
+				412E4DAC68B5A57F0BD660E7 /* libPods-LabelScannerExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -95,8 +95,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */,
-				20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */,
+				C4841DA515419F783780AE9E /* Pods-LabelScannerExample.debug.xcconfig */,
+				FC9D7567CA83F1E9C1356A33 /* Pods-LabelScannerExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -108,13 +108,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LabelScannerExample" */;
 			buildPhases = (
-				5CD0DC9A307A9BA18E3106B0 /* [CP] Check Pods Manifest.lock */,
+				0500022E567FFBD219CBB884 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				8E0BC5C396E387BBFB8F31F4 /* [CP] Embed Pods Frameworks */,
-				8819FB3A6BF51775CAF65414 /* [CP] Copy Pods Resources */,
+				FAB9F8BF7F1B3869391210A1 /* [CP] Embed Pods Frameworks */,
+				7B6D729B0AD36E4A10045AF1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,7 +186,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		5CD0DC9A307A9BA18E3106B0 /* [CP] Check Pods Manifest.lock */ = {
+		0500022E567FFBD219CBB884 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -208,7 +208,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8819FB3A6BF51775CAF65414 /* [CP] Copy Pods Resources */ = {
+		7B6D729B0AD36E4A10045AF1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,7 +225,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LabelScannerExample/Pods-LabelScannerExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E0BC5C396E387BBFB8F31F4 /* [CP] Embed Pods Frameworks */ = {
+		FAB9F8BF7F1B3869391210A1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,7 +259,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21869E7E8BA265DC5F13C697 /* Pods-LabelScannerExample.debug.xcconfig */;
+			baseConfigurationReference = C4841DA515419F783780AE9E /* Pods-LabelScannerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -292,7 +292,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20117A466BAAE52330D92B23 /* Pods-LabelScannerExample.release.xcconfig */;
+			baseConfigurationReference = FC9D7567CA83F1E9C1356A33 /* Pods-LabelScannerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

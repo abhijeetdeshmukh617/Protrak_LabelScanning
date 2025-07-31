@@ -33,18 +33,21 @@ class ScanActivity : AppCompatActivity() {
               //  val imagePath:String? =  intent.getStringExtra(Constants.INTENT_KEY_IMAGE_PATH)
                 val imageCacheDir = getImageCacheDir(this)
                 val file = File(imageCacheDir, "my_image.png")
+                val scanType = intent.getStringExtra(Constants.SCAN_TYPE)
                 val TemplateJsonString = intent.getStringExtra(Constants.INTENT_TEMPLATE_JSON_STRING)
-                val scanTimer = 5  //intent.getIntExtra(Constants.INTENT_SCAN_TIMER,5)
+              val scanTimer = intent.getDoubleExtra(Constants.INTENT_SCAN_TIMER,0.0).toInt()
+            
               //  val imagePath = intent.getStringExtra("imagePath")
                 Log.d("startScan","from library TemplateJsonString "+TemplateJsonString)
                 Log.d("startScan","from library  scanTimer "+scanTimer)
+                  Log.d("scanType","from library  scanType "+scanType)
                // Log.d("newInstance","from library  imagePath "+imagePath)
 
                 //val TemplateJsonString:String = loadJsonFromAsset(this,"template.json")
                // val scanTimer = 6
                 val imagePath:String? =  file.absolutePath
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ScanFragment.newInstance(TemplateJsonString.toString(),scanTimer,imagePath))
+                    .replace(R.id.container, ScanFragment.newInstance(TemplateJsonString.toString(),scanTimer,imagePath,scanType))
                     .commitNow()
             }
 
