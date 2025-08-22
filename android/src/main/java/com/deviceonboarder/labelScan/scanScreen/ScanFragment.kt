@@ -66,27 +66,25 @@ class ScanFragment : Fragment() {
     companion object {
         const val imagePath = ""
 
-        fun newInstance(ARG1: String, ARG2: Int, ARG3: String?, ARG4: String?): ScanFragment {
-            Log.d("newInstance","newInstance ARG1 "+ARG1)
-            Log.d("newInstance","newInstance ARG2 "+ARG2)
-            Log.d("newInstance","newInstance ARG3 "+ARG3)
-            val fragment = ScanFragment()
-            val bundle = Bundle().apply {
-                putString(Constants.INTENT_TEMPLATE_JSON_STRING, ARG1)
-                putInt(Constants.INTENT_SCAN_TIMER, ARG2)
-                putString(Constants.INTENT_KEY_IMAGE_PATH, ARG3)
-              putString(Constants.SCAN_TYPE, ARG4)
-            }
-            fragment.arguments = bundle
-            return fragment
-        }
+fun newInstance( templateJson: String, scanTimer: Int, imagePath: String?,  scanType: String?, caputureCount: Int): ScanFragment {
+    val fragment = ScanFragment()
+    val bundle = Bundle().apply {
+        putString(Constants.INTENT_TEMPLATE_JSON_STRING, templateJson)
+        putInt(Constants.INTENT_SCAN_TIMER, scanTimer)
+        putString(Constants.INTENT_KEY_IMAGE_PATH, imagePath)
+        putString(Constants.SCAN_TYPE, scanType)
+        putInt(Constants.caputureCount, caputureCount)
+    }
+    fragment.arguments = bundle
+    return fragment
+}
 
         val cropPercentage = CropPercentage()
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.CAMERA
         )
     }
 
@@ -112,30 +110,23 @@ class ScanFragment : Fragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val imageCacheDir = getImageCacheDir(requireContext())
-        val file = File(imageCacheDir, "my_image.png")
-
-       // viewModel.SelectedTemplateString = loadJsonFromAsset(requireContext(),"template.json")
-      //  viewModel.timePending = 6L
-      //  viewModel.imagePath= file.absolutePath
-        Log.d("startScan","viewModel SelectedTemplateString "+arguments?.getString(Constants.INTENT_TEMPLATE_JSON_STRING))
-        Log.d("startScan","viewModel timePending "+arguments?.getInt(Constants.INTENT_SCAN_TIMER))
-        Log.d("startScan","viewModel imagePath "+arguments?.getString(Constants.INTENT_KEY_IMAGE_PATH))
-        viewModel.SelectedTemplateString = arguments?.getString(Constants.INTENT_TEMPLATE_JSON_STRING).toString()
-        viewModel.timePending =  arguments?.getInt(Constants.INTENT_SCAN_TIMER)!!.toLong()
-        viewModel.imagePath= arguments?.getString(Constants.INTENT_KEY_IMAGE_PATH)!!
-         Log.d("check", "scanType from arguments : ${ arguments?.getString(Constants.SCAN_TYPE)}")
-          viewModel.scanType = arguments?.getString(Constants.SCAN_TYPE)
-           Log.d("check", "scanType initial : ${viewModel.scanType ?: ""}")
-             Log.d("check", "scanType viewModel.timePending : ${viewModel.timePending}")
-           if(viewModel.scanType.equals(Constants.SCAN_LABEL)){
+      val imageCacheDir = getImageCacheDir(requireContext())
+    val file = File(imageCacheDir, "my_image.png")
+    viewModel.SelectedTemplateString = arguments?.getString(Constants.INTENT_TEMPLATE_JSON_STRING).toString()
+    viewModel.timePending = arguments?.getInt(Constants.INTENT_SCAN_TIMER)!!.toLong()
+    viewModel.imagePath = arguments?.getString(Constants.INTENT_KEY_IMAGE_PATH)!!
+    viewModel.scanType = arguments?.getString(Constants.SCAN_TYPE)
+   viewModel.caputureCount = (arguments?.getInt(Constants.caputureCount))
+    if (viewModel.scanType == Constants.SCAN_LABEL) {
         viewModel.convertJsonToObject(viewModel.SelectedTemplateString)
-           }
+    }
         if (null != savedInstanceState) {
             viewModel.timePending = savedInstanceState.getLong(Constants.TIMER_INSTANCE)
             viewModel.isScanning = savedInstanceState.getBoolean(Constants.IS_SCANNING)
             viewModel.imagePath = savedInstanceState.getString(Constants.INTENT_KEY_IMAGE_PATH)!!
             viewModel.scanType = savedInstanceState.getString(Constants.SCAN_TYPE)!!
+            viewModel.caputureCount = savedInstanceState.getInt(Constants.caputureCount)
+
         }
     }
 
@@ -163,28 +154,12 @@ class ScanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         var view = inflater.inflate(R.layout.main_fragment, container, false)
-
-        if (!isGPSEnabled()) {
-            requestGPSEnable()
-        }
-
         overlay = view.findViewById(R.id.overlay)
         processingText = view.findViewById(R.id.processing_text)
         progressBar = view.findViewById(R.id.progressBar)
-
         processingText.visibility = View.GONE
         progressBar.visibility = View.GONE
         return view
-    }
-
-    fun isGPSEnabled(): Boolean {
-        val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
-
-    fun requestGPSEnable() {
-        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-        startActivity(intent)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -194,7 +169,6 @@ class ScanFragment : Fragment() {
         init()
         viewModel.isScanning = false
         viewModel.executor = cameraExecutor
-        Log.d("startScan","allPermissionsGranted: "+allPermissionsGranted())
         if (allPermissionsGranted()) {
             viewFinder.post {
                 displayId = viewFinder.display.displayId
@@ -344,7 +318,8 @@ class ScanFragment : Fragment() {
             " checkThresholdAndStop timer count " + viewModel.timePending +
             "checkThresholdAndStop : barcodeScanCount " + barcodeScanCount + " ocrScanCount " + ocrScanCount
         )
-        if ((Constants.OCR_THRESHOLDCOUNT <= ocrScanCount) || (Constants.OCR_THRESHOLDCOUNT <= barcodeScanCount) ) {
+
+        if ((viewModel.caputureCount ?: 0) <= ocrScanCount || (viewModel.caputureCount ?: 0) <= barcodeScanCount) {
             stopCamera()
             viewFinder.visibility = View.GONE
             overlay.visibility = View.GONE
@@ -433,8 +408,6 @@ class ScanFragment : Fragment() {
         viewModel.scanResultJson.observe(viewLifecycleOwner, Observer {
             onScanComplete(it, null == it)
         })
-
-        // Select back camera since text detection does not work with front camera
         val cameraSelector =
             CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
 
@@ -517,32 +490,12 @@ class ScanFragment : Fragment() {
         }
     }
 
-    /**
-     * Check if all permission specified in the manifest have been granted
-     */
-   /* private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            requireContext(), it
-        ) == PackageManager.PERMISSION_GRANTED
-    }*/
-
     private fun allPermissionsGranted() :Boolean {
         val cameraPermission = ContextCompat.checkSelfPermission(
             activity!!,
             Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
-
-      /*  val coarseLocationPermission = ContextCompat.checkSelfPermission(
-            activity!!,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        val fineLocationPermission = ContextCompat.checkSelfPermission(
-            activity!!,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-*/
-        return (cameraPermission ) //&& (coarseLocationPermission || fineLocationPermission))
+        return (cameraPermission )
     }
 
     private fun onScanComplete(scanResultJson: String, isError: Boolean) {
@@ -550,7 +503,6 @@ class ScanFragment : Fragment() {
         val data = Intent();
         if (isError) {
             Log.d("startScan / onScanComplete", "Error in scanning")
-            //activity?.setResult(Activity.RESULT_FIRST_USER, data)
         } else {
             data.putExtra(Constants.SCAN_RESULT, scanResultJson);
             Log.d(

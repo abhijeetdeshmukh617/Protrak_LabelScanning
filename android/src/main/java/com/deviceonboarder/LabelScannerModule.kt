@@ -36,12 +36,12 @@ private var promise: Promise? = null
     return a * b
   }
 
-  override fun scanQRBarcode(promise: Promise) {
+  override fun scanQRBarcode(caputureCount: Double, promise: Promise) {
     mPromise = promise
     Log.d("startScan","scanType starting: scanQRBarcode")
     val intent = Intent(reactApplicationContext, ScanActivity::class.java).apply {
-    //   putExtra(Constants.INTENT_SCAN_TIMER, delayTime)
        putExtra(Constants.SCAN_TYPE,Constants.SCAN_QRBARCODE )
+       putExtra(Constants.caputureCount, caputureCount)
       flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     }
     Log.d("startScan","starting: ")
@@ -57,10 +57,11 @@ private var promise: Promise? = null
     }
   }
 
-override fun startScan(templateJson: String, delayTime: Double, promise: Promise) {
+override fun startScan(templateJson: String, delayTime: Double, caputureCount: Double, promise: Promise) {
     mPromise = promise
     val intent = Intent(reactApplicationContext, ScanActivity::class.java).apply {
         putExtra(Constants.INTENT_TEMPLATE_JSON_STRING, templateJson)
+        putExtra(Constants.caputureCount, caputureCount)
         putExtra(Constants.INTENT_SCAN_TIMER, delayTime)
         putExtra(Constants.INTENT_KEY_IMAGE_PATH, "")
         putExtra(Constants.SCAN_TYPE,Constants.SCAN_LABEL )

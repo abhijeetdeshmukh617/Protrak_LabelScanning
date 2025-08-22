@@ -3,6 +3,7 @@ package com.deviceonboarder.labelScan.util
 class Constants {
 
     companion object {
+        const val caputureCount = "caputureCount"
         const val SCAN_TYPE = "SCAN_TYPE"
         const val SCAN_LABEL = "LABEL"
         const val SCAN_QRBARCODE = "QRBARCODE"

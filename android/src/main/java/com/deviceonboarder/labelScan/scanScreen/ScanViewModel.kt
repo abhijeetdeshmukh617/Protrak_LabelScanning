@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.deviceonboarder.labelScan.analyzer.ScanDataManager
 import com.deviceonboarder.labelScan.model.ScannedRawData
 import com.deviceonboarder.labelScan.model.TemplateAttribute
@@ -16,7 +17,7 @@ import com.google.mlkit.vision.barcode.common.Barcode.FORMAT_QR_CODE
 import com.google.mlkit.vision.text.Text
 import java.util.concurrent.Executor
 
-class ScanViewModel(application: Application) : AndroidViewModel(application) {
+class ScanViewModel : ViewModel() {
     lateinit var executor: Executor
     lateinit var SelectedTemplateString: String
     private lateinit var templateAttrList: MutableList<TemplateAttribute>
@@ -25,6 +26,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     val scanResultJson = SmoothedMutableLiveData<String>(SMOOTHING_DURATION)
     var timePending: Long = 0
     var scanType: String? = Constants.SCAN_LABEL
+    var caputureCount: Int? = 0
     lateinit var imagePath: String
     var isScanning = false
     var scanDataManager = ScanDataManager()
