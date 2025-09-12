@@ -93,7 +93,10 @@ Log.d("startScan","requestCode: "+requestCode)
             Log.d("startScan","result: "+result)
             if (resultCode == Activity.RESULT_OK && result != null) {
                 mPromise?.resolve(result)
-            } else {
+            } else if(resultCode == Activity.CONTEXT_RESTRICTED) {
+                 mPromise?.reject("SCAN_FAILED", "Permission Denied")
+            } 
+            else {
                 mPromise?.reject("SCAN_FAILED", "Scan failed or was canceled")
             }
             mPromise = null
